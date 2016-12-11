@@ -1,0 +1,73 @@
+[user]
+	name = albocc
+	email = albocc@users.noreply.github.com
+
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+	autocrlf = input
+
+	# Treat spaces before tabs and all kinds of trailing whitespace as an error
+	# [default] trailing-space: looks for spaces at the end of a line
+	# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+	whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+
+	# Make 'git rebase' safer on macOS
+	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+	trustctime = false
+
+	# Git and the Umlaut problem on Mac OS X
+	# Prevent showing files which filenames contains umlauts as untracked
+	# Needs to be 'false' since OS X 10.9.x
+	precomposeunicode = true
+
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	# User colorized output in Git commands (default since Git 1.8.4)
+	ui = auto
+
+[commit]
+	template = ~/.stCommitMsg
+
+[push]
+	default = simple
+	# Make 'git push' push relevant annotated tags when pushing branches out
+	followTags = true
+
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+
+[alias]
+	s = status -s
+	co = checkout
+	staged = diff --cached
+	unstaged = diff
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	pull = pull --ff-only
+	amend = commit --amend
+	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(black)%s%C(reset) %C(dim black)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(black)%s%C(reset) %C(dim black)- %an%C(reset)' --all
+	lg = !"git lg1"
+
+# Kaleidoscope
+[diff]
+	mnemonicprefix = true
+	tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustexitcode = true
+[merge]
+	tool = Kaleidoscope
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+
