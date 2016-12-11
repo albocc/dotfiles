@@ -4,7 +4,7 @@ export PATH="$HOME/bin:$PATH";
 # Load other shell dotfiles
 for file in ~/.{aliases,exports};
 do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+	[ -r "$file" ] && source "$file";
 done;
 unset file;
 
