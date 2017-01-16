@@ -34,7 +34,7 @@ set showcmd
 set showmode
 
 " Set textwidth to break lines longer than that
-set textwidth=80
+"set textwidth=80
 
 " Detect Unix (LF) or Windows (CR) line endings
 set fileformats=unix,dos
