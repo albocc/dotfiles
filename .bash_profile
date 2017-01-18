@@ -1,5 +1,7 @@
 # Add '~/bin' to the '$PATH'
 export PATH="$HOME/bin:$PATH";
+# MacPorts Installer addition.
+export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 
 # Load other shell dotfiles
 for file in ~/.{aliases,exports};
