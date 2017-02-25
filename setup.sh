@@ -10,6 +10,7 @@ read
 # Make the files only readable to user and group:
 chmod 640 $SCRIPTPATH/.aliases
 chmod 640 $SCRIPTPATH/.bash_profile
+chmod 640 $SCRIPTPATH/.bashrc
 chmod 640 $SCRIPTPATH/.curlrc
 chmod 640 $SCRIPTPATH/.exports
 chmod 640 $SCRIPTPATH/.gitconfig
@@ -32,6 +33,7 @@ done
 if $copyInsteadOfSymlink; then
 	cp -ai $SCRIPTPATH/.aliases $HOME/
 	cp -ai $SCRIPTPATH/.bash_profile $HOME/
+	cp -ai $SCRIPTPATH/.bashrc $HOME/
 	cp -ai $SCRIPTPATH/.curlrc $HOME/
 	cp -ai $SCRIPTPATH/.exports $HOME/
 	cp -ai $SCRIPTPATH/.gitconfig $HOME/
@@ -46,6 +48,7 @@ if $copyInsteadOfSymlink; then
 else
 	ln -si $SCRIPTPATH/.aliases $HOME/
 	ln -si $SCRIPTPATH/.bash_profile $HOME/
+	ln -si $SCRIPTPATH/.bashrc $HOME/
 	ln -si $SCRIPTPATH/.curlrc $HOME/
 	ln -si $SCRIPTPATH/.exports $HOME/
 	ln -si $SCRIPTPATH/.gitconfig $HOME/

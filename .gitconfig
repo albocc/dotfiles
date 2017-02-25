@@ -31,7 +31,7 @@
 	ui = auto
 
 [commit]
-	template = ~/.stCommitMsg
+#	template = ~/.stCommitMsg
 
 [push]
 	default = simple
