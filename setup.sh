@@ -8,11 +8,11 @@ echo "The current path to the setup script and the dotfiles seems to be $SCRIPTP
 read
 
 # Make the files only readable to user and group:
-chmod 640 $SCRIPTPATH/.aliases
+chmod 640 $SCRIPTPATH/.bash_aliases
 chmod 640 $SCRIPTPATH/.bash_profile
 chmod 640 $SCRIPTPATH/.bashrc
 chmod 640 $SCRIPTPATH/.curlrc
-chmod 640 $SCRIPTPATH/.exports
+chmod 640 $SCRIPTPATH/.bash_exports
 chmod 640 $SCRIPTPATH/.gitconfig
 chmod 640 $SCRIPTPATH/.gitignore
 find $SCRIPTPATH/.vim -type d -exec chmod 750 {} +
@@ -31,11 +31,11 @@ done
 
 # Copy or symlink them now:
 if $copyInsteadOfSymlink; then
-	cp -ai $SCRIPTPATH/.aliases $HOME/
+	cp -ai $SCRIPTPATH/.bash_aliases $HOME/
 	cp -ai $SCRIPTPATH/.bash_profile $HOME/
 	cp -ai $SCRIPTPATH/.bashrc $HOME/
 	cp -ai $SCRIPTPATH/.curlrc $HOME/
-	cp -ai $SCRIPTPATH/.exports $HOME/
+	cp -ai $SCRIPTPATH/.bash_exports $HOME/
 	cp -ai $SCRIPTPATH/.gitconfig $HOME/
 	cp -ai $SCRIPTPATH/.gitignore $HOME/
 	cp -ai $SCRIPTPATH/.vim $HOME/
@@ -46,11 +46,11 @@ if $copyInsteadOfSymlink; then
 	mkdir -p $HOME/.vim/undo
 	cp -ai $SCRIPTPATH/.vimrc $HOME/
 else
-	ln -si $SCRIPTPATH/.aliases $HOME/
+	ln -si $SCRIPTPATH/.bash_aliases $HOME/
 	ln -si $SCRIPTPATH/.bash_profile $HOME/
 	ln -si $SCRIPTPATH/.bashrc $HOME/
 	ln -si $SCRIPTPATH/.curlrc $HOME/
-	ln -si $SCRIPTPATH/.exports $HOME/
+	ln -si $SCRIPTPATH/.bash_exports $HOME/
 	ln -si $SCRIPTPATH/.gitconfig $HOME/
 	ln -si $SCRIPTPATH/.gitignore $HOME/
 	ln -si $SCRIPTPATH/.vim $HOME/
