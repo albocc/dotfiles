@@ -4,7 +4,7 @@ set nocompatible
 " Tabstop settings:
 set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 " Copy current indent when starting a new line
-set autoindent
+"set autoindent
 " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands
 set shiftround
 

@@ -6,7 +6,9 @@ case $- in
       *) return;;
 esac
 
-# Load other shell dotfiles first
+## Load other shell dotfiles first
+# git-prompt.sh seems to be not necessary(?)
+# for file in ~/.{bash_exports,bash_aliases,git-prompt.sh};
 for file in ~/.{bash_exports,bash_aliases};
 do
 	[ -r "$file" ] && source "$file";
