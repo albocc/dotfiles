@@ -1,4 +1,12 @@
-# ~/.bash_profile: executed by bash(1) for login shells.
+# .bash_profile
 
-# Do the same like for non-login shells, so load ~/.bashrc
-source "~/.bashrc"
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
