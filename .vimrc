@@ -4,7 +4,27 @@ set nocompatible
 " Tabstop settings:
 set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 " Copy current indent when starting a new line
-"set autoindent
+set autoindent
+" { + enter indents next line:
+set smartindent
+" Backspace removes 4 spaces if this is on:
+set smarttab
+
+" Auto indent pasted text
+nnoremap p p=`]<C-o>
+nnoremap P P=`]<C-o>
+
+" Folds:
+" based on indents
+set foldmethod=indent
+" deepest fold is 3 levels
+set foldnestmax=3
+" don't fold by default
+set nofoldenable
+" Remap space bar for toggling folding of current block
+nnoremap <Space> za
+vnoremap <Space> za
+
 " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands
 set shiftround
 
@@ -56,11 +76,13 @@ set esckeys
 set encoding=utf-8 nobomb
 
 " Centralize backups, swapfiles and undo history
+if has('persistent_undo') && !isdirectory(expand('~').'/.vim/undo')
+	silent !mkdir ~/.vim/undo > /dev/null 2>&1
+	set undodir=~/.vim/undo
+	set undofile
+endif
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
-if exists("&undodir")
-	set undodir=~/.vim/undo
-endif
 
 " Don't wrap long lines, let them run off screen instead
 set nowrap
@@ -86,4 +108,7 @@ if has("autocmd")
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
+
+" Disable cursor blinking
+set gcr=a:blinkon0
 
