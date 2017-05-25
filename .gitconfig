@@ -43,10 +43,10 @@
 	# Make 'git push' push relevant annotated tags when pushing branches out
 	followTags = true
 
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+#[filter "lfs"]
+#	clean = git-lfs clean %f
+#	smudge = git-lfs smudge %f
+#	required = true
 
 [alias]
 # General
