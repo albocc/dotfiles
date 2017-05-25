@@ -1,6 +1,7 @@
 [user]
-	name = albocc
-	email = albocc@users.noreply.github.com
+	# Forces user.email and user.name configuration variables to always be set
+	# when committing, useful when using multiple email addresses.
+	useconfigonly = true
 
 [core]
 	editor = vim
@@ -31,6 +32,9 @@
 	# User colorized output in Git commands (default since Git 1.8.4)
 	ui = auto
 
+[color "status"]
+	untracked = yellow	# Default is red
+
 [commit]
 #	template = ~/.stCommitMsg
 
@@ -45,14 +49,40 @@
 	required = true
 
 [alias]
+# General
 	s = status -s
-	co = checkout
-	staged = diff --cached
-	unstaged = diff
-	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	st = status
 	pull = pull --ff-only
+	# You don't always want to blame them
+	praise = blame
+
+# Checkout
+	co = checkout
+	# Creating a branch with 'cb' prefixed by my username
+	cb = "!f() { git checkout -b $(git config --get user.name)/$@; }; f"
+
+# Diff
+	staged = diff --cached
+
+# Staging
+	ap = add -p
+
+# Commit
 	amend = commit --amend
+
+# Rebase
+	rbi = rebase --interactive
+	rba = rebase --abort
+	rbc = rebase --continue
+
+# Log
 	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	lg = !"git lg1"
+	# Show who made the most commits because why not?
+	leaderbord = shortlog -sn
+	# Show the last 10 branches that I have worked on
+	recent = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format="%(refname:short)"
+	# Show today's accomplishments
+	today = log --all --oneline --no-merges --author=`git config --get user.email`
 
