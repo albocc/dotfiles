@@ -17,3 +17,6 @@ unset file;
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
+# Hide all new files from other users
+umask 007
+
