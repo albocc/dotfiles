@@ -112,14 +112,3 @@ endif
 " Disable cursor blinking
 set gcr=a:blinkon0
 
-" -- Custom color scheme --
-" for vim 7:
-"set t_Co=256
-
-" for vim 8:
-if (has("termguicolors"))
- set termguicolors
-endif
-
-" Color scheme is stored in ~/.vim/colors
-colorscheme github
