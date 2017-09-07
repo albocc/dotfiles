@@ -112,3 +112,6 @@ endif
 " Disable cursor blinking
 set gcr=a:blinkon0
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cnoremap w!! w !sudo tee % > /dev/null
+
