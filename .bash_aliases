@@ -10,7 +10,7 @@ alias ....="cd ../../.."
 alias ll="ls -lahF --color"
 
 # Make dnf always run with sudo, so you don't forget it next time ;-)
-alias dnf='sudo dnf'
+alias pacman='sudo pacman'
 
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
