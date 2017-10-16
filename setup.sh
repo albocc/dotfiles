@@ -19,48 +19,21 @@ find $SCRIPTPATH/.vim -type d -exec chmod 750 {} +
 find $SCRIPTPATH/.vim -type f -exec chmod 640 {} +
 chmod 640 $SCRIPTPATH/.vimrc
 
-# Ask the user if files should be copied or symlinked instead:
-while true; do
-	read -p "Do you want to copy the files or symlink them? Enter 'copy' or 'symlink': " copysymlink
-	case $copysymlink in
-		[Cc]* ) copyInsteadOfSymlink=true; break;;
-		[Ss]* ) copyInsteadOfSymlink=false; break;;
-		* ) echo "Please answer yes or no, without any '' symbols.";;
-	esac
-done
+cp -ai $SCRIPTPATH/.bash_aliases $HOME/
+cp -ai $SCRIPTPATH/.bash_profile $HOME/
+cp -ai $SCRIPTPATH/.bashrc $HOME/
+cp -ai $SCRIPTPATH/.curlrc $HOME/
+cp -ai $SCRIPTPATH/.bash_exports $HOME/
+cp -ai $SCRIPTPATH/.gitconfig $HOME/
+cp -ai $SCRIPTPATH/.gitignore $HOME/
+cp -ai $SCRIPTPATH/.vim $HOME/
 
-# Copy or symlink them now:
-if $copyInsteadOfSymlink; then
-	cp -ai $SCRIPTPATH/.bash_aliases $HOME/
-	cp -ai $SCRIPTPATH/.bash_profile $HOME/
-	cp -ai $SCRIPTPATH/.bashrc $HOME/
-	cp -ai $SCRIPTPATH/.curlrc $HOME/
-	cp -ai $SCRIPTPATH/.bash_exports $HOME/
-	cp -ai $SCRIPTPATH/.gitconfig $HOME/
-	cp -ai $SCRIPTPATH/.gitignore $HOME/
-	cp -ai $SCRIPTPATH/.vim $HOME/
-	# Created .vim subfolders since they are empty by default and therefore not
-	# synchronized with Git:
-	mkdir -p $HOME/.vim/backups
-	mkdir -p $HOME/.vim/swaps
-	mkdir -p $HOME/.vim/undo
-	cp -ai $SCRIPTPATH/.vimrc $HOME/
-else
-	ln -si $SCRIPTPATH/.bash_aliases $HOME/
-	ln -si $SCRIPTPATH/.bash_profile $HOME/
-	ln -si $SCRIPTPATH/.bashrc $HOME/
-	ln -si $SCRIPTPATH/.curlrc $HOME/
-	ln -si $SCRIPTPATH/.bash_exports $HOME/
-	ln -si $SCRIPTPATH/.gitconfig $HOME/
-	ln -si $SCRIPTPATH/.gitignore $HOME/
-	ln -si $SCRIPTPATH/.vim $HOME/
-	# Created .vim subfolders since they are empty by default and therefore not
-	# synchronized with Git:
-	mkdir -p $SCRIPTPATH/.vim/backups
-	mkdir -p $SCRIPTPATH/.vim/swaps
-	mkdir -p $SCRIPTPATH/.vim/undo
-	ln -si $SCRIPTPATH/.vimrc $HOME/
-fi
+# Created .vim subfolders since they are empty by default and therefore not
+# synchronized with Git:
+mkdir -p $HOME/.vim/backups
+mkdir -p $HOME/.vim/swaps
+mkdir -p $HOME/.vim/undo
+cp -ai $SCRIPTPATH/.vimrc $HOME/
 
 # Ask user if he/she also wants the gitignore templates:
 while true; do
@@ -79,17 +52,6 @@ if $gitignoreTemplates; then
 		echo ".gitignore.d submodule not initialized, initializing it now.."
 		git submodule update --init || exit 1
 	fi
-	# Now copy or symlink the gitignore templates if requested:
-	if $copyInsteadOfSymlink; then
-		cp -ai $SCRIPTPATH/.gitignore.d $HOME/
-	else
-		ln -si $SCRIPTPATH/.gitignore.d $HOME/
-	fi
+	cp -ai $SCRIPTPATH/.gitignore.d $HOME/
 fi
 
-# Unset all variables again to leave environment clean
-unset SCRIPTPATH
-unset copysymlink
-unset copyInsteadOfSymlink
-unset yn
-unset gitignoreTemplates
