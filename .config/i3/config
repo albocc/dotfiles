@@ -202,6 +202,9 @@ assign [class="Thunderbird"] 10
 # usbguard-applet-qt:
 for_window [class="usbguard-applet-qt"] floating enable
 
+# Set wallpaper automatically
+exec ~/.config/.fehbg
+
 # Autostart applications
 exec thunderbird
 exec usbguard-applet-qt
