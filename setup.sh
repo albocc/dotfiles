@@ -18,6 +18,7 @@ chmod 640 $SCRIPTPATH/.gitignore
 find $SCRIPTPATH/.vim -type d -exec chmod 750 {} +
 find $SCRIPTPATH/.vim -type f -exec chmod 640 {} +
 chmod 640 $SCRIPTPATH/.vimrc
+chmod -R 640 $SCRIPTPATH/.config
 
 cp -ai $SCRIPTPATH/.bash_aliases $HOME/
 cp -ai $SCRIPTPATH/.bash_profile $HOME/
@@ -34,6 +35,7 @@ mkdir -p $HOME/.vim/backups
 mkdir -p $HOME/.vim/swaps
 mkdir -p $HOME/.vim/undo
 cp -ai $SCRIPTPATH/.vimrc $HOME/
+cp -r $SCRIPTPATH/.config $HOME/
 
 # Ask user if he/she also wants the gitignore templates:
 while true; do
