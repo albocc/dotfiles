@@ -192,6 +192,9 @@ bindsym XF86Sleep mode "$mode_system"
 # Activate autolock to lock screen when idling for a while
 exec --no-startup-id xautolock -time 30 -locker "$Locker"
 
+# Screenshots using import (ImageMagick)
+bindsym --release Print exec import "Screenshot-`date +%Y-%m-%d_%H-%M-%S`.png"
+
 # Assign applications to workspaces
 assign [class="Thunderbird"] 10
 
