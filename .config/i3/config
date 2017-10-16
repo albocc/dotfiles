@@ -172,13 +172,13 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Shutdown, reboot, lock screen
-set $Locker i3lock && sleep 1
+set $Locker i3lock -c aaaaaa
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym s exec --no-startup-id $Locker && sleep 1 && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && sleep 1 && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
 
@@ -186,9 +186,11 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 #bindsym $mod+Pause mode "$mode_system"
 bindsym XF86Sleep mode "$mode_system"
+
+# Activate autolock to lock screen when idling for a while
+exec --no-startup-id xautolock -time 30 -locker "$Locker"
 
 # Assign applications to workspaces
 assign [class="Thunderbird"] 10
