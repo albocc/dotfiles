@@ -29,8 +29,8 @@ wireless _first_ {
 
 ethernet _first_ {
         # if you use %speed, i3status requires root privileges
-        format_up = "⛖ %ip"
-        format_down = "⛖  net down"
+        format_up = "⋈ %ip"
+        format_down = "⋈ net down"
 }
 
 battery all {
@@ -52,7 +52,7 @@ cpu_usage {
 cpu_temperature 0 {
         format = "%degrees°"
         separator = false
-        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
         max_threshold = 85
 }
 
