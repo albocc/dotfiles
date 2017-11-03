@@ -8,6 +8,7 @@ echo "The current path to the setup script and the dotfiles seems to be $SCRIPTP
 read
 
 # Make the files only readable to user and group:
+chmod 640 $SCRIPTPATH/.asoundrc
 chmod 640 $SCRIPTPATH/.bash_aliases
 chmod 640 $SCRIPTPATH/.bash_profile
 chmod 640 $SCRIPTPATH/.bashrc
@@ -20,6 +21,7 @@ find $SCRIPTPATH/.vim -type f -exec chmod 640 {} +
 chmod 640 $SCRIPTPATH/.vimrc
 chmod -R 640 $SCRIPTPATH/.config
 
+cp -ai $SCRIPTPATH/.asoundrc $HOME/
 cp -ai $SCRIPTPATH/.bash_aliases $HOME/
 cp -ai $SCRIPTPATH/.bash_profile $HOME/
 cp -ai $SCRIPTPATH/.bashrc $HOME/

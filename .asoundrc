@@ -1,0 +1,21 @@
+## Without Apulse:
+#pcm.!default {
+#	type hw
+#	card 1
+#}
+
+pcm.!default {
+    type plug
+    slave.pcm "asymed"
+}
+
+
+pcm.asymed {
+    type asym
+    playback.pcm {
+        @func getenv
+        vars [ ALSAPCM ]
+        default "hw:1"
+    }
+    capture.pcm "dsnoop"
+}
