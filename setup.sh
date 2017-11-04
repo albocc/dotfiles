@@ -20,6 +20,7 @@ find $SCRIPTPATH/.vim -type d -exec chmod 750 {} +
 find $SCRIPTPATH/.vim -type f -exec chmod 640 {} +
 chmod 640 $SCRIPTPATH/.vimrc
 chmod -R 640 $SCRIPTPATH/.config
+chmod 750 $SCRIPTPATH/.config/.fehbg
 
 cp -ai $SCRIPTPATH/.asoundrc $HOME/
 cp -ai $SCRIPTPATH/.bash_aliases $HOME/
