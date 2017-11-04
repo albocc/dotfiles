@@ -16,6 +16,7 @@ chmod 640 $SCRIPTPATH/.curlrc
 chmod 640 $SCRIPTPATH/.bash_exports
 chmod 640 $SCRIPTPATH/.gitconfig
 chmod 640 $SCRIPTPATH/.gitignore
+chmod 640 $SCRIPTPATH/.xinitrc
 find $SCRIPTPATH/.vim -type d -exec chmod 750 {} +
 find $SCRIPTPATH/.vim -type f -exec chmod 640 {} +
 chmod 640 $SCRIPTPATH/.vimrc
@@ -31,6 +32,7 @@ cp -ai $SCRIPTPATH/.bash_exports $HOME/
 cp -ai $SCRIPTPATH/.gitconfig $HOME/
 cp -ai $SCRIPTPATH/.gitignore $HOME/
 cp -ai $SCRIPTPATH/.vim $HOME/
+cp -ai $SCRIPTPATH/.xinitrc $HOME/
 
 # Created .vim subfolders since they are empty by default and therefore not
 # synchronized with Git:
