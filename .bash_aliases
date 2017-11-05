@@ -9,7 +9,7 @@ alias ....="cd ../../.."
 # -F appends indicator (one of */=>@|) to entries
 alias ll="ls -lahF --color"
 
-# Make dnf always run with sudo, so you don't forget it next time ;-)
+# Make pacman always run with sudo, so you don't forget it next time ;-)
 alias pacman='sudo pacman'
 
 # Stopwatch
