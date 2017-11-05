@@ -12,6 +12,9 @@ alias ll="ls -lahF --color"
 # Make pacman always run with sudo, so you don't forget it next time ;-)
 alias pacman='sudo pacman'
 
+# Create alias to give pacman an autoremove command
+alias pacman_autoremove='sudo pacman -Rsn $(pacman -Qqdt)'
+
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
