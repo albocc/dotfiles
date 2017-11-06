@@ -9,6 +9,9 @@ alias ....="cd ../../.."
 # -F appends indicator (one of */=>@|) to entries
 alias ll="ls -lahF --color"
 
+# Since I am using OpenRC masterrace, make the command easier to remember
+alias service='sudo rc-service'
+
 # Make pacman always run with sudo, so you don't forget it next time ;-)
 alias pacman='sudo pacman'
 
