@@ -43,6 +43,9 @@ bindsym $mod+Shift+d exec dmenu_run
 # installed.
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+# Start Ranger file manager in termite
+bindsym $mod+F11 exec termite -e ranger
+
 # Start web browser
 bindsym $mod+F12 exec iceweasel
 
