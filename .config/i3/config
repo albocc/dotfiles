@@ -46,6 +46,9 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 # Toggle keyboard deadkeys
 bindsym $mod+F8 exec --no-startup-id "if setxkbmap -query | grep nodeadkeys > /dev/null; then setxkbmap de deadtilde; else setxkbmap de nodeadkeys; fi"
 
+# Start ncmpcpp
+bindsym $mod+F10 exec termite -e ncmpcpp
+
 # Start Ranger file manager in termite
 bindsym $mod+F11 exec termite -e ranger
 
