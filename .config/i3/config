@@ -183,7 +183,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Shutdown, reboot, lock screen
-set $Locker i3lock -c aaaaaa && xset dpms force off
+set $Locker "i3lock -c aaaaaa; xset dpms force off"
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
