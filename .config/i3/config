@@ -219,6 +219,9 @@ bindsym --release Print exec --no-startup-id import "/home/user/Pictures/Screens
 # Set wallpaper automatically
 exec --no-startup-id ~/.config/.fehbg
 
+# Mount Nextcloud share
+exec --no-startup-id mount Nextcloud-WebDAV/
+
 # Assign applications to workspaces
 assign [class="Icedove"] 10
 
