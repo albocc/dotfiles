@@ -203,12 +203,6 @@ mode "$mode_system" {
 #bindsym $mod+Pause mode "$mode_system"
 bindsym XF86Sleep mode "$mode_system"
 
-# Activate autolock to lock screen when idling for a while
-exec --no-startup-id xautolock -time 15 -locker "$Locker" -notify 10 \
-	-notifier "notify-send 'System will be locked automatically in 10 seconds...'"
-	-killtime 30 \
-	-killer "sudo pm-suspend"
-
 # Screenshots using import (ImageMagick)
 bindsym --release Print exec --no-startup-id import "/home/user/Pictures/Screenshots/Screenshot-`date +%Y-%m-%d_%H-%M-%S`.png"
 
@@ -221,6 +215,9 @@ exec --no-startup-id ~/.config/.fehbg
 
 # Mount Nextcloud share
 exec --no-startup-id mount Nextcloud-WebDAV/
+
+exec --no-startup-id xautolock -time 14 -locker "i3lock -c aaaaaa && xset dpms force off" -notify 10 \
+	-notifier "notify-send 'System will be locked automatically in 10 seconds...'"
 
 # Assign applications to workspaces
 assign [class="Icedove"] 10
