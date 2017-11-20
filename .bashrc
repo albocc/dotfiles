@@ -18,5 +18,5 @@ unset file;
 # export SYSTEMD_PAGER=
 
 # Hide all new files from other users
-umask 007
+umask 027
 
