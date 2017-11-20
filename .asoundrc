@@ -4,7 +4,7 @@
 #	card 1
 #}
 
-pcm.!default {
+pcm.!sysdefault {
     type plug
     slave.pcm "asymed"
 }
@@ -24,7 +24,7 @@ pcm.dmixer {
     type dmix
     ipc_key 1024
     slave {
-        pcm "hw:1"
+        pcm "hw:0"
     }
 }
 
