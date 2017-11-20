@@ -1,8 +1,8 @@
 # .bashrc
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+if [ -f /etc/profile ]; then
+	. /etc/profile
 fi
 
 ## Load other shell dotfiles first

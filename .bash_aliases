@@ -12,12 +12,6 @@ alias ll="ls -lahF --color"
 # Since I am using OpenRC masterrace, make the command easier to remember
 alias service='sudo rc-service'
 
-# Make pacman always run with sudo, so you don't forget it next time ;-)
-alias pacman='sudo pacman'
-
-# Create alias to give pacman an autoremove command
-alias pacman_autoremove='sudo pacman -Rsn $(pacman -Qqdt)'
-
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
