@@ -30,8 +30,9 @@ font pango:DejaVu Sans 9
 floating_modifier $mod
 
 # start a terminal
+set $TERMINAL uxterm
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec uxterm
+bindsym $mod+Return exec --no-startup-id $TERMINAL
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -47,10 +48,10 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+F8 exec --no-startup-id "if setxkbmap -query | grep nodeadkeys > /dev/null; then setxkbmap de deadtilde; else setxkbmap de nodeadkeys; fi"
 
 # Start ncmpcpp
-bindsym $mod+F10 exec i3-sensible-terminal ncmpcpp
+bindsym $mod+F10 exec --no-startup-id $TERMINAL ncmpcpp
 
 # Start Ranger file manager in termite
-bindsym $mod+F11 exec i3-sensible-terminal ranger
+bindsym $mod+F11 exec --no-startup-id $TERMINAL ranger
 
 # Start web browser
 bindsym $mod+F12 exec firefox-quantum
