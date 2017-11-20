@@ -31,7 +31,7 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec uxterm
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -47,13 +47,13 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+F8 exec --no-startup-id "if setxkbmap -query | grep nodeadkeys > /dev/null; then setxkbmap de deadtilde; else setxkbmap de nodeadkeys; fi"
 
 # Start ncmpcpp
-bindsym $mod+F10 exec termite -e ncmpcpp
+bindsym $mod+F10 exec i3-sensible-terminal ncmpcpp
 
 # Start Ranger file manager in termite
-bindsym $mod+F11 exec termite -e ranger
+bindsym $mod+F11 exec i3-sensible-terminal ranger
 
 # Start web browser
-bindsym $mod+F12 exec iceweasel
+bindsym $mod+F12 exec firefox-quantum
 
 # change focus
 bindsym $mod+j focus left
@@ -175,9 +175,9 @@ bar {
 
 # ALSA Audio controls
 set $refreshbar pkill -x -USR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 -q sset Master 5%+  && $refreshbar #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 -q sset Master 5%-  && $refreshbar #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id amixer -c 1 -q sset Master toggle      && $refreshbar # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q sset Master 5%+  && $refreshbar #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q sset Master 5%-  && $refreshbar #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id amixer -c 0 -q sset Master toggle      && $refreshbar # mute sound
 
 # Media player controls
 bindsym XF86AudioPlay exec --no-startup-id mpc toggle
@@ -186,15 +186,15 @@ bindsym XF86AudioNext exec --no-startup-id mpc next
 bindsym XF86AudioPrev exec --no-startup-id mpc prev
 
 # Shutdown, reboot, lock screen
-set $Locker "i3lock -c aaaaaa; xset dpms force off"
+set $Locker i3lock -c aaaaaa
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym l exec --no-startup-id $Locker && xset dpms force off, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && sleep 1 && sudo pm-suspend, mode "default"
-    bindsym h exec --no-startup-id $Locker && sleep 2 && sudo pm-hibernate, mode "default"
-    bindsym r exec --no-startup-id sudo openrc-shutdown -r, mode "default"
-    bindsym Shift+s exec --no-startup-id sudo openrc-shutdown -p, mode "default"
+    bindsym s exec --no-startup-id $Locker && sleep 1 && xset dpms force off && sudo /usr/sbin/s2ram, mode "default"
+    bindsym h exec --no-startup-id $Locker && sleep 2 && xset dpms force off && sudo /usr/local/sbin/myhibernate, mode "default"
+    bindsym r exec --no-startup-id sudo /sbin/shutdown -r now, mode "default"
+    bindsym Shift+s exec --no-startup-id sudo /sbin/shutdown -P now, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -230,10 +230,10 @@ exec --no-startup-id xautolock -time 14 -locker "i3lock -c aaaaaa && xset dpms f
 	-notifier "notify-send 'System will be locked automatically in 10 seconds...'"
 
 # Assign applications to workspaces
-assign [class="Icedove"] 10
+assign [class="Thunderbird"] 10
 
 # Autostart applications
-exec icedove
+exec thunderbird
 #exec usbguard-applet-qt
 
 # Move Icedove to second monitor
