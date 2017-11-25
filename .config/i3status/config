@@ -50,7 +50,7 @@ cpu_usage {
         separator = false
         degraded_threshold = 25
         max_threshold = 50
-        format_above_threshold = "⚙ %usage !"
+        format_above_threshold = "CPU: %usage !"
 }
 
 cpu_temperature 0 {
