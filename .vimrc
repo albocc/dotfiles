@@ -120,5 +120,7 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
+Plug 'vim-scripts/DoxygenToolkit.vim'
+
 " Initialize plugin system
 call plug#end()
