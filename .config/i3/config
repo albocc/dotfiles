@@ -231,7 +231,7 @@ client.background       #ffffff
 exec --no-startup-id ~/.config/.fehbg
 
 # Mount Nextcloud share
-exec --no-startup-id mount Nextcloud-WebDAV/
+#exec --no-startup-id mount Nextcloud-WebDAV/
 
 exec --no-startup-id xautolock -time 14 -locker "i3lock -c aaaaaa && xset dpms force off" -notify 10 \
 	-notifier "notify-send 'System will be locked automatically in 10 seconds...'"
