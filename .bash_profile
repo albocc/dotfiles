@@ -7,9 +7,15 @@ fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
+PATH=$PATH:/sbin:$HOME/.local/bin:$HOME/bin
 
 export PATH
+
+# Mount music from NAS
+if ! mount | grep NAS > /dev/null
+then
+	mount Musik/NAS
+fi
 
 # MPD daemon start (if no other user instance exists)
 [ ! -s ~/.config/mpd/pid ] && mpd 2> $HOME/.config/mpd/log
