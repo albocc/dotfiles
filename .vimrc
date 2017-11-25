@@ -115,3 +115,10 @@ set gcr=a:blinkon0
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cnoremap w!! w !sudo tee % > /dev/null
 
+" Plugins - via Plug
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+
+" Initialize plugin system
+call plug#end()
