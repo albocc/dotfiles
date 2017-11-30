@@ -47,6 +47,9 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 # Toggle keyboard deadkeys
 bindsym $mod+F8 exec --no-startup-id "if setxkbmap -query | grep nodeadkeys > /dev/null; then setxkbmap de deadtilde; else setxkbmap de nodeadkeys; fi"
 
+# Start htop
+bindsym $mod+F9 exec --no-startup-id $TERMINAL htop
+
 # Start ncmpcpp
 bindsym $mod+F10 exec --no-startup-id $TERMINAL ncmpcpp
 
