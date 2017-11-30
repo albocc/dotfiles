@@ -53,8 +53,8 @@ bindsym $mod+F9 exec --no-startup-id $TERMINAL htop
 # Start ncmpcpp
 bindsym $mod+F10 exec --no-startup-id $TERMINAL ncmpcpp
 
-# Start Ranger file manager in termite
-bindsym $mod+F11 exec --no-startup-id $TERMINAL ranger
+# Start file manager
+bindsym $mod+F11 exec --no-startup-id xfe
 
 # Start web browser
 bindsym $mod+F12 exec --no-startup-id firefox-bin
