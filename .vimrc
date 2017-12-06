@@ -124,3 +124,21 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 
 " Initialize plugin system
 call plug#end()
+
+" Remap Ctrl-Arrow-Keys for URxvt (short-term hack)
+" map: normal, visual, select and operator mode
+" map!: insert, command-line mode
+map <ESC>Oa <C-Up>
+map <ESC>Ob <C-Down>
+map <ESC>Od <C-Left>
+map <ESC>Oc <C-Right>
+map! <ESC>Oa <C-Up>
+map! <ESC>Ob <C-Down>
+map! <ESC>Od <C-Left>
+map! <ESC>Oc <C-Right>
+
+" Map F7/F8 to switch between open tabs opened with :tabe <file>
+map <F7> :tabp<CR>
+map <F8> :tabn<CR>
+map! <F7> <ESC>:tabp<CR>
+map! <F8> <ESC>:tabn<CR>
