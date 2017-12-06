@@ -30,7 +30,8 @@ font pango:DejaVu Sans 9
 floating_modifier $mod
 
 # start a terminal
-set $TERMINAL uxterm
+#Old: set $TERMINAL uxterm
+set $TERMINAL urxvt
 #bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec --no-startup-id $TERMINAL
 
@@ -48,10 +49,10 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+F8 exec --no-startup-id "if setxkbmap -query | grep nodeadkeys > /dev/null; then setxkbmap de deadtilde; else setxkbmap de nodeadkeys; fi"
 
 # Start htop
-bindsym $mod+F9 exec --no-startup-id $TERMINAL htop
+bindsym $mod+F9 exec --no-startup-id $TERMINAL -e htop
 
 # Start ncmpcpp
-bindsym $mod+F10 exec --no-startup-id $TERMINAL ncmpcpp
+bindsym $mod+F10 exec --no-startup-id $TERMINAL -e ncmpcpp
 
 # Start file manager
 bindsym $mod+F11 exec --no-startup-id xfe
