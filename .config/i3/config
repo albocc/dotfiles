@@ -55,7 +55,7 @@ bindsym $mod+F9 exec --no-startup-id $TERMINAL -e htop
 bindsym $mod+F10 exec --no-startup-id $TERMINAL -e ncmpcpp
 
 # Start file manager
-bindsym $mod+F11 exec --no-startup-id xfe
+bindsym $mod+F11 exec --no-startup-id $TERMINAL -e ranger
 
 # Start web browser
 bindsym $mod+F12 exec --no-startup-id firefox-bin
