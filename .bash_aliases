@@ -18,6 +18,9 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 # Burn CDs (add image.iso name after `burncd`)
 alias burncd='sudo cdrecord -v -dao -eject dev=/dev/sr0'
 
+# Burn files to CD
+burnfiles2cd () { mkisofs -r "$1" | sudo cdrecord -v -dao fs=16m speed=48 tsize=`mkisofs -r -quiet -print-size "$1"`s - ;}
+
 # Some useful functions
 # chmod all files in the passed folder and subfolders with mode passed as argument
 fchmod () { find $2 -type f -exec chmod $1 {} + ;}
