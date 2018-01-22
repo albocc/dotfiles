@@ -36,4 +36,5 @@ UXTerm*color7:       #707880
 UXTerm*color15:      #c5c8c6
 
 ! Font
-xterm*faceName:      DejaVu Sans Mono:pixelsize=11
+UXTerm*faceName:      DejaVu Sans Mono:pixelsize=11
+
