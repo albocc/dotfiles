@@ -236,6 +236,8 @@ hide_edge_borders smart
 #for_window [class="usbguard-applet-qt"] floating enable
 # GPG pinentry
 for_window [class="pinentry|Pinentry"] floating enable
+# Thunderbird's compose windows
+for_window [class="Thunderbird" window_role="Msgcompose"] floating enable
 
 # Set wallpaper automatically
 exec --no-startup-id ~/.config/.fehbg
