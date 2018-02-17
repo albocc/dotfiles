@@ -198,8 +198,9 @@ bindsym XF86AudioPrev exec --no-startup-id mpc prev
 
 # Shutdown, reboot, lock screen
 set $Locker i3lock -c aaaaaa
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system Screen (b) blank; System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
+    bindsym b exec --no-startup-id xset dpms force off, mode "default"
     bindsym l exec --no-startup-id $Locker && xset dpms force off, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id $Locker && sleep 1 && xset dpms force off && sudo /usr/sbin/s2ram, mode "default"
@@ -227,9 +228,14 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
+# Remove borders if just one window visible
+hide_edge_borders smart
+
 # Correct handling of floating dialogs
 ## usbguard-applet-qt:
 #for_window [class="usbguard-applet-qt"] floating enable
+# GPG pinentry
+for_window [class="pinentry|Pinentry"] floating enable
 
 # Set wallpaper automatically
 exec --no-startup-id ~/.config/.fehbg
@@ -251,5 +257,5 @@ assign [class="Thunderbird"] 10
 exec thunderbird
 #exec usbguard-applet-qt
 
-# Move Icedove to second monitor
+# Move Thunderbird to second monitor
 exec --no-startup-id i3-msg "workspace 10, move workspace to output DVI-D-1, workspace 1"
