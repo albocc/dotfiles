@@ -1,2 +1,2 @@
-#!/bin/sh
-/usr/bin/feh --no-fehbg --bg-fill '/home/myuser/wallpaper/i3wallpaper.png'
+# !/bin/sh
+/usr/bin/feh --no-fehbg --bg-fill "`find /home/myuser/wallpaper/ -type f | shuf -n 1`"
