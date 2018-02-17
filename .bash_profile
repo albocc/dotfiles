@@ -23,5 +23,5 @@ fi
 # Start freaking X already
 if ! pgrep -x "Xorg" > /dev/null
 then
-  exec startx
+  exec startx -- -nolisten tcp
 fi
