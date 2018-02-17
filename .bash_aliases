@@ -29,3 +29,6 @@ concatpdf () { gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutput
 fchmod () { find $2 -type f -exec chmod $1 {} + ;}
 # chmod all folders in the passed folder and subfolders with mode passed as argument
 dchmod () { find $2 -type d -exec chmod $1 {} + ;}
+
+# Flash images
+flashimage () { sudo dd if="$1" of="$2" bs=8M oflag=sync status=progress ;}
