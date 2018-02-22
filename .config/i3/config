@@ -202,7 +202,7 @@ set $mode_system Screen (b) blank; System (l) lock, (e) logout, (s) suspend, (h)
 mode "$mode_system" {
     bindsym b exec --no-startup-id xset dpms force off, mode "default"
     bindsym l exec --no-startup-id $Locker && xset dpms force off, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym e exit, mode "default"
     bindsym s exec --no-startup-id $Locker && sleep 1 && xset dpms force off && sudo /usr/sbin/s2ram, mode "default"
     bindsym h exec --no-startup-id $Locker && sleep 2 && xset dpms force off && sudo /usr/local/sbin/myhibernate, mode "default"
     bindsym r exec --no-startup-id sudo /sbin/shutdown -r now, mode "default"
@@ -238,6 +238,8 @@ hide_edge_borders smart
 for_window [class="pinentry|Pinentry"] floating enable
 # Thunderbird's compose windows
 for_window [class="Thunderbird" window_role="Msgcompose"] floating enable
+# Firefox's page info window
+for_window [class="Firefox" window_role="page-info"] floating enable
 
 # Set wallpaper automatically
 exec --no-startup-id ~/.config/.fehbg
