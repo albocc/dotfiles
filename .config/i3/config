@@ -34,6 +34,10 @@ floating_modifier $mod
 set $TERMINAL urxvt
 #bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec --no-startup-id $TERMINAL
+bindsym $mod+Shift+Return exec --no-startup-id $TERMINAL -name floating
+for_window [class="URxvt" instance="floating"] floating enable
+for_window [class="URxvt" instance="floating"] resize set 800 600
+for_window [class="URxvt" instance="floating"] position center
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -46,7 +50,14 @@ bindsym $mod+Shift+d exec --no-startup-id dmenu_run
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # Toggle keyboard deadkeys
-bindsym $mod+F8 exec --no-startup-id "if setxkbmap -query | grep nodeadkeys > /dev/null; then setxkbmap de deadtilde; else setxkbmap de nodeadkeys; fi"
+bindsym $mod+F7 exec --no-startup-id "if setxkbmap -query | grep nodeadkeys > /dev/null; then setxkbmap de deadtilde; else setxkbmap de nodeadkeys; fi"
+
+# Start calculator
+bindsym $mod+F8 exec --no-startup-id $TERMINAL -name floatingcalc -e bc -l
+bindsym $mod+Shift+F8 exec --no-startup-id $TERMINAL -name floatingcalc -e units
+for_window [class="URxvt" instance="floatingcalc"] floating enable
+for_window [class="URxvt" instance="floatingcalc"] resize set 400 200
+for_window [class="URxvt" instance="floatingcalc"] position center
 
 # Start htop
 bindsym $mod+F9 exec --no-startup-id $TERMINAL -e htop
@@ -182,6 +193,10 @@ bar {
         position top
         status_command i3status
         tray_output primary
+        colors {
+            statusline #ffffff
+            background #323232
+        }
 }
 
 # ALSA Audio controls
