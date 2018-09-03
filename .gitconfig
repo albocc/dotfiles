@@ -8,21 +8,13 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	autocrlf = input
+	pager = less -S
 
 	# Treat spaces before tabs and all kinds of trailing whitespace as an error
 	# [default] trailing-space: looks for spaces at the end of a line
 	# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
 	# [custom] blank lines at eof are okay
 	whitespace = space-before-tab,-indent-with-non-tab,trailing-space,-blank-at-eof
-
-	# Make 'git rebase' safer on macOS
-	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
-	trustctime = false
-
-	# Git and the Umlaut problem on Mac OS X
-	# Prevent showing files which filenames contains umlauts as untracked
-	# Needs to be 'false' since OS X 10.9.x
-	precomposeunicode = true
 
 [color]
 	status = auto
@@ -61,28 +53,59 @@
 	# Creating a branch with 'cb' prefixed by my username
 	cb = "!f() { git checkout -b $(git config --get user.name)/$@; }; f"
 
-# Diff
+# Branch
+	# Create feature branch
+	cfb = "!f() { [ ${1:?'Arg missing'} ] && git checkout -b feature/$(sed 's/ /_/g' <<< \"$@\"); }; f"
+	# Delete local branch (capital D means force)
+	dlb = "!f() { git branch -d ${1:?'Branch name missing'}; }; f"
+	Dlb = "!f() { git branch -D ${1:?'Branch name missing'}; }; f"
+	# Delete remote branch (including remote tracking brach)
+	drb = "!f() { git push --delete ${2-'origin'} ${1:?'Branch name missing'}; git branch --delete --remotes ${2-'origin'}/${1} }; f"
+
+# Diff/Show
 	staged = diff --cached
+	# Diff between two commits below HEAD
+	dh = "!f() { git diff HEAD~${2:?'Arg missing'} HEAD~$1; }; f"
+	cs = "!f() { git rev-list --pretty=oneline `git merge-base ${1:?'Refspec for \"Since\" missing'} HEAD`...HEAD; }; f"		# Commits since
 
 # Staging
 	ap = add -p
+
+# Stashing
+	stash = stash --include-untracked
 
 # Commit
 	amend = commit --amend
 
 # Rebase
-	rbi = rebase --interactive
+	rbi = rebase --interactive --rebase-merges
+	# Rebase interactive the last n commits
+	rbih = "!f() { git rbi HEAD~${1:?'Arg missing'}; }; f"
+	# Rebase interactive since merge-base with branch
+	rbib = "!f() { git rbi $(git merge-base $(git rev-parse --abbrev-ref HEAD) ${1:?'Branch name missing'}); }; f"
 	rba = rebase --abort
 	rbc = rebase --continue
+	rbs = rebase --skip
+
+# Reset
+	rs = reset --soft
+	# Reset soft n commits below HEAD
+	rsh = "!f() { git rs HEAD~${1:?'Arg missing'}; }; f"
+	# Reset hard n commits below HEAD
+	rh = reset --hard
+	rhh = "!f() { git rh HEAD~${1:?'Arg missing'}; }; f"
+
+# Merge
+	conflicts = "!f() { git format-patch $(git merge-base HEAD ${1:?'Arg missing'})..$1 --stdout | git apply --check -;) }; f"
 
 # Log
 	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	lg = !"git lg1"
 	# Show who made the most commits because why not?
-	leaderbord = shortlog -sn
+	leaderboard = shortlog -sn
 	# Show the last 10 branches that I have worked on
 	recent = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format="%(refname:short)"
 	# Show today's accomplishments
-	today = log --all --oneline --no-merges --author=`git config --get user.email`
+	today = "!git log --all --oneline --no-merges --author=`git config --get user.email` --since 'Today at 8 am'"
 
