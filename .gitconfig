@@ -52,6 +52,7 @@
 	co = checkout
 	# Creating a branch with 'cb' prefixed by my username
 	cb = "!f() { git checkout -b $(git config --get user.name)/$@; }; f"
+	cof = "!f() { [ ${1:?'Search pattern missing'} ] && git co `git branch -a | grep -E \"feature/.*$@\" | awk 'NR==1{print $1}'`; }; f"	# checkout feature
 
 # Branch
 	# Create feature branch
@@ -66,7 +67,7 @@
 	staged = diff --cached
 	# Diff between two commits below HEAD
 	dh = "!f() { git diff HEAD~${2:?'Arg missing'} HEAD~$1; }; f"
-	cs = "!f() { git rev-list --pretty=oneline `git merge-base ${1:?'Refspec for \"Since\" missing'} HEAD`...HEAD; }; f"		# Commits since
+	cs = "!f() { git rev-list --pretty=oneline `git merge-base ${1:?'Refspec for \"Since\" missing'} ${2-'HEAD'}`...${2-'HEAD'}; }; f"		# Commits since
 
 # Staging
 	ap = add -p
@@ -91,17 +92,18 @@
 	rs = reset --soft
 	# Reset soft n commits below HEAD
 	rsh = "!f() { git rs HEAD~${1:?'Arg missing'}; }; f"
-	# Reset hard n commits below HEAD
 	rh = reset --hard
+	# Reset hard n commits below HEAD
 	rhh = "!f() { git rh HEAD~${1:?'Arg missing'}; }; f"
 
 # Merge
-	conflicts = "!f() { git format-patch $(git merge-base HEAD ${1:?'Arg missing'})..$1 --stdout | git apply --check -;) }; f"
+	conflicts = "!f() { git format-patch $(git merge-base HEAD ${1:?'Arg missing'})..$1 --stdout | git apply --check -; }; f"
 
 # Log
 	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	lg = !"git lg1"
+	logo = log --pretty=oneline
 	# Show who made the most commits because why not?
 	leaderboard = shortlog -sn
 	# Show the last 10 branches that I have worked on
