@@ -99,14 +99,18 @@ set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
 
 " Show line numbers
-set number
+set number relativenumber
 
-" Automatic commands
+" Splits open at the bottom and right instead of the other way
+set splitbelow splitright
+
 if has("autocmd")
 	" Enable file type detection
 	filetype on
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+	" Make markdown files auto-wrap text for 80 cols
+	autocmd BufNewFile,BufRead *.md set tw=79
 endif
 
 " Disable cursor blinking
@@ -117,10 +121,6 @@ cnoremap w!! w !sudo tee % > /dev/null
 
 " Plugins - via Plug
 call plug#begin('~/.vim/plugged')
-
-" Make sure you use single quotes
-
-Plug 'vim-scripts/DoxygenToolkit.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -142,3 +142,8 @@ map <F7> :tabp<CR>
 map <F8> :tabn<CR>
 map! <F7> <ESC>:tabp<CR>
 map! <F8> <ESC>:tabn<CR>
+
+" This unsets the "last search pattern" register by hitting return
+" <silent> will make it not pollute the command history
+:nnoremap <silent> <CR> :nohlsearch<CR><CR>
+
