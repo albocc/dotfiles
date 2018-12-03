@@ -16,10 +16,7 @@
 	diff = diff-highlight | less -S
 
 	# Treat spaces before tabs and all kinds of trailing whitespace as an error
-	# [default] trailing-space: looks for spaces at the end of a line
-	# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
-	# [custom] blank lines at eof are okay
-	whitespace = space-before-tab,-indent-with-non-tab,trailing-space,-blank-at-eof
+	whitespace = blank-at-eol,space-before-tab,indent-with-non-tab,-blank-at-eof
 
 [color]
 	status = auto
