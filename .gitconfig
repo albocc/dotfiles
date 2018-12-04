@@ -46,7 +46,7 @@
 # General
 	s = status -s
 	st = status
-	pull = pull --ff-only
+	pull = pull --ff-only --prune
 	# You don't always want to blame them
 	praise = blame
 
@@ -58,7 +58,7 @@
 
 # Branch
 	# Create feature branch
-	cfb = "!f() { [ ${1:?'Arg missing'} ] && git checkout -b feature/$(sed 's/ /_/g' <<< \"$@\"); }; f"
+	cfb = "!f() { [ ${1:?'Arg missing'} ] && git checkout -b feature/$(sed 's/ä/ae/g; s/ö/oe/g; s/ü/ue/g; s/[^a-zA-Z0-9-]/_/g; s/__/_/g' <<< \"$@\"); }; f"
 	# Delete local branch (capital D means force)
 	dlb = "!f() { git branch -d ${1:?'Branch name missing'}; }; f"
 	Dlb = "!f() { git branch -D ${1:?'Branch name missing'}; }; f"
@@ -72,15 +72,23 @@
 	# Diff between two commits below HEAD
 	dh = "!f() { git diff HEAD~${2:?'Arg missing'} HEAD~$1; }; f"
 	cs = "!f() { git rev-list --pretty=oneline `git merge-base ${1:?'Refspec for \"Since\" missing'} ${2-'HEAD'}`...${2-'HEAD'}; }; f"		# Commits since
+	cso = "!f() { git cs origin/$(git rev-parse --abbrev-ref HEAD); }; f" # Commits since push to origin
 
 # Staging
+	unstage = reset HEAD --
+	addr = "!f() { git add \\*$@\\*; }; f"
 	ap = add -p
+	apr = "!f() { git add -p \\*$@\\*; }; f"
+	rp = reset -p
 
 # Stashing
-	stash = stash --include-untracked
+	stash = "!git stash --include-untracked"
+	stashp = stash pop
 
 # Commit
+	cm = "!f() { git commit -F - <<< \"$@\"; }; f"
 	amend = commit --amend
+	fixup = "!f() { git commit --fixup=$1 ${@:2}; }; f"
 
 # Rebase
 	rbi = rebase --interactive --rebase-merges
@@ -93,6 +101,7 @@
 	rbs = rebase --skip
 
 # Reset
+	discard = checkout --
 	rs = reset --soft
 	# Reset soft n commits below HEAD
 	rsh = "!f() { git rs HEAD~${1:?'Arg missing'}; }; f"
@@ -114,4 +123,5 @@
 	recent = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format="%(refname:short)"
 	# Show today's accomplishments
 	today = "!git log --all --oneline --no-merges --author=`git config --get user.email` --since 'Today at 8 am'"
+	yesterday = "!git log --all --oneline --no-merges --author=`git config --get user.email` --since 'Yesterday at 8 am' --until 'Today at 8 am'"
 
