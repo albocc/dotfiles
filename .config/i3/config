@@ -191,7 +191,7 @@ bindsym $mod+Shift+p resize grow width 10 px or 10 ppt
 # finds out, if available)
 bar {
         position top
-        status_command i3status
+        status_command i3blocks
         tray_output primary
         colors {
             statusline #ffffff

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FANSPEED=$(/usr/bin/sensors | /bin/grep -A2 thinkpad-isa | /bin/grep fan1 | /usr/bin/awk '{print $2}')
+
+# Long text
+echo "$FANSPEED rpm"
+
+# Short text
+echo $FANSPEED
+

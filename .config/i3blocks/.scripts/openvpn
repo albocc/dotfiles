@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -d '/sys/class/net/tun0' ]; then
+	ip addr show dev tun0 | grep 'inet ' | awk '{print $2}' | awk -F '/' '{print $1}'
+else
+	echo "❌"
+fi
+
