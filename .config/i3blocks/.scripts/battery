@@ -17,15 +17,20 @@ done
 # The remaining energy as a percentage of the full energy value
 REMAINING_ENERGY_PERCENTAGE=$((CURRENTLY_AVAILABLE_ENERGY * 100 / TOTAL_FULL_ENERGY))%
 
-# Calculate and format the remaining time
-REMAINING_HOURS=$(($CURRENTLY_AVAILABLE_ENERGY / $POWER_CONSUMPTION))
-REMAINING_MINUTES=$(bc -l <<< "(($CURRENTLY_AVAILABLE_ENERGY.0 / $POWER_CONSUMPTION.0) - $REMAINING_HOURS.0) * 60.0")
-REMAINING_TIME="$(printf "%02d" ${REMAINING_HOURS}):$(printf "%02d" ${REMAINING_MINUTES/.*/})"
-
 # Print the percentage and the remaining time, plus a fancy cable emoji when charging
 if [ "$(cat $KERNEL_PATH_TO_BATTERIES/AC/online)" -eq 1 ]; then
+	# Calculate and format the remaining time based on what is left to charge
+	REMAINING_HOURS=$((($TOTAL_FULL_ENERGY - $CURRENTLY_AVAILABLE_ENERGY) / $POWER_CONSUMPTION))
+	REMAINING_MINUTES=$(bc -l <<< "((($TOTAL_FULL_ENERGY - $CURRENTLY_AVAILABLE_ENERGY) / $POWER_CONSUMPTION) - $REMAINING_HOURS.0) * 60.0")
+	REMAINING_TIME="$(printf "%02d" ${REMAINING_HOURS}):$(printf "%02d" ${REMAINING_MINUTES/.*/})"
+
 	echo "$REMAINING_ENERGY_PERCENTAGE ($REMAINING_TIME) 🔌"
 else
+	# Calculate and format the remaining time based on the energy left
+	REMAINING_HOURS=$(($CURRENTLY_AVAILABLE_ENERGY / $POWER_CONSUMPTION))
+	REMAINING_MINUTES=$(bc -l <<< "(($CURRENTLY_AVAILABLE_ENERGY / $POWER_CONSUMPTION) - $REMAINING_HOURS.0) * 60.0")
+	REMAINING_TIME="$(printf "%02d" ${REMAINING_HOURS}):$(printf "%02d" ${REMAINING_MINUTES/.*/})"
+
 	echo "$REMAINING_ENERGY_PERCENTAGE ($REMAINING_TIME)"
 fi
 
