@@ -52,6 +52,10 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -fn 'pang
 # Toggle keyboard deadkeys
 bindsym $mod+F7 exec --no-startup-id "if setxkbmap -query | grep nodeadkeys > /dev/null; then setxkbmap de deadtilde; else setxkbmap de nodeadkeys; fi"
 
+# Mount and unmount drives
+bindsym $mod+F5 exec --no-startup-id "~/.scripts/dmenumount"
+bindsym $mod+Shift+F5 exec --no-startup-id "~/.scripts/dmenuumount"
+
 # Start calculator
 bindsym $mod+F8 exec --no-startup-id $TERMINAL -name floatingcalc -e bc -l
 bindsym $mod+Shift+F8 exec --no-startup-id $TERMINAL -name floatingcalc -e units
