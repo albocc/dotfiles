@@ -18,7 +18,7 @@ then
 fi
 
 # MPD daemon start (if no other user instance exists)
-[ ! -s ~/.config/mpd/pid ] && mpd 2> $HOME/.config/mpd/log
+[ ! -s /tmp/mpd/pid ] && mkdir /tmp/mpd && mpd 2> $HOME/.config/mpd/log
 
 # Start window manager
 if [ $(tty) == "/dev/tty1" ]; then
