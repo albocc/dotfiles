@@ -1,0 +1,45 @@
+#!/bin/bash
+
+pgrep -x dmenu && exit
+
+# Some functions for handling the work
+choose-and-start() {
+	CHOSEN_CONF="$(printf '%s\n' "${CONFIGS[@]}" | dmenu -i -p "Which OpenVPN config?")"
+	[ -z "$CHOSEN_CONF" ] && exit 1
+
+	sudo rc-service openvpn.${CHOSEN_CONF} start
+}
+
+stop-all() {
+	for vpn in $CONFIGS; do
+		sudo rc-service openvpn.${vpn} stop
+	done
+}
+
+# The (file)names of the configuration
+declare -a CONFIGS
+
+# Find all configuration files:
+for file in `ls /etc/openvpn/*.conf`; do
+	CONFIGS+=($(basename "${file%.*}"))
+done
+
+# Check if any VPN is connected
+if [ -d '/sys/class/net/tun0' ]; then
+	# If so, print IP address
+	ip addr show dev tun0 | grep 'inet ' | awk '{print $2}' | awk -F '/' '{print $1}'
+
+	# Check if script has been invoked by mouse click
+	case $BLOCK_BUTTON in
+		1) stop-all ;;
+	esac
+else
+	# If not connected, show X emoji
+	echo "❌"
+
+	# Check if script has been invoked by mouse click
+	case $BLOCK_BUTTON in
+		1) choose-and-start ;;
+	esac
+fi
+
