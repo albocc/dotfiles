@@ -30,8 +30,8 @@ static const Rule rules[] = {
 	/* class      instance    title                 tags mask     iscentered   isfloating     monitor */
 	/*{ "Gimp",     NULL,       NULL,                 0,            1,           False,         -1 }/
 	{ "Firefox",  NULL,       NULL,                 1 << 1,       0,           False,         -1 },*/
-	{ "st",       NULL,       "floatingcalc",       0,            True,        True,          -1 },
-	{ "st",       NULL,       "floatingunitcalc",   0,            True,        True,          -1 },
+	{ "urxvt",    NULL,       "floatingcalc",       0,            True,        True,          -1 },
+	{ "urxvt",    NULL,       "floatingunitcalc",   0,            True,        True,          -1 },
 	{ "wpa_gui",  NULL,       "wpa_gui",            0,            True,        True,          -1 },
 };
 
@@ -61,18 +61,18 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-l", "10", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "urxvt", NULL };
 
 static const char *shutdowncmd[] = { "/home/user/.config/dwm/shutdown.sh", NULL };
 
 static const char *browsercmd[] = { "firefox-bin", NULL };
-static const char *rangercmd[] = { "st", "-e", "ranger", NULL };
-static const char *ncmpcppcmd[] = { "st", "-e", "ncmpcpp", NULL };
-static const char *htopcmd[] = { "st", "-e", "htop", NULL };
+static const char *rangercmd[] = { "urxvt", "-e", "ranger", NULL };
+static const char *ncmpcppcmd[] = { "urxvt", "-e", "ncmpcpp", NULL };
+static const char *htopcmd[] = { "urxvt", "-e", "htop", NULL };
 
 /* floating widgets */
-static const char *floatingcalc[] = { "st", "-t", "floatingcalc", "-e", "bc", NULL };
-static const char *floatingunitcalc[] = { "st", "-t", "floatingunitcalc", "-e", "units", NULL };
+static const char *floatingcalc[] = { "urxvt", "-t", "floatingcalc", "-e", "bc", NULL };
+static const char *floatingunitcalc[] = { "urxvt", "-t", "floatingunitcalc", "-e", "units", NULL };
 
 /* volume control */
 static const char *upvol[] = { "amixer", "-c", "1", "-q", "sset", "Master", "5%+", NULL };
