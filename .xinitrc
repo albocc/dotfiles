@@ -35,14 +35,14 @@ fi
 # Turn off screen blanking and set timeout to 15 min
 xset s off && xset dpms 900 900 900
 
-# Turn the middle click of the trackpad into a left click
-xinput --set-button-map $(xinput | grep TouchPad | awk '{print $6}' | tr -d 'id=') 1 1 3 4 5 6 7
+# Set up the trackpad
+~/.scripts/setup-trackpad.sh
 
 # Turn numlock on
 numlockx on
 
 # Activate xautolock
-xautolock -time 14 -locker "slock && xset dpms force off" -notify 15 -notifier "notify-send 'System will be locked automatically in 15 seconds...'" &
+xautolock -time 29 -locker "i3lock" -notify 60 -notifier "notify-send 'System will be locked automatically in 1 minute...'" &
 
 # Set wallpaper
 nitrogen --restore
@@ -50,6 +50,16 @@ nitrogen --restore
 # Start statusbar for dwm
 ~/.config/dwm/status-bar/status-bar.sh &
 
-#exec i3
-exec dwm
+# Start Compton as compositor (also avoids tearing?)
+compton &
+
+# Subscribe to systemd-events for locking the screen
+xss-lock -l ~/.scripts/transfer-sleep-lock-generic-delay.sh &
+
+# Swap escape and caps lock
+setxkbmap -option caps:swapescape
+
+exec i3
+#exec dwm
+#exec xmonad
 
