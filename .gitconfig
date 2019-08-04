@@ -8,12 +8,12 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	autocrlf = input
-	pager = less -S
+	pager = less -S -R
 
 [pager]
-	log = diff-highlight | less -S
-	show = diff-highlight | less -S
-	diff = diff-highlight | less -S
+	log = diff-highlight | less -S -R
+	show = diff-highlight | less -S -R
+	diff = diff-highlight | less -S -R
 
 	# Treat spaces before tabs and all kinds of trailing whitespace as an error
 	whitespace = blank-at-eol,space-before-tab,indent-with-non-tab,-blank-at-eof
