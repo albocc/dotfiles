@@ -1,18 +1,31 @@
-command=/usr/libexec/i3blocks/$BLOCK_NAME
+command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=15
 
 [mpd]
-label=♫ 
+label=🎵 
 color=#b8d0e8
 command=~/.config/i3blocks/.scripts/mpd
 interval=5
 signal=2
 
-[volume]
+[weather]
+interval=1800
 color=#8bbdeb
+signal=4
+command=~/.config/i3blocks/.scripts/weather
+
+[volume]
 interval=once
+color=#b8d0e8
 signal=1
 command=~/.config/i3blocks/.scripts/volume
+
+[brightness]
+label=🔆
+color=#8bbdeb
+interval=once
+signal=3
+command=echo $(( $(cat /sys/class/backlight/amdgpu_bl0/brightness) * 100 / 255 ))
 
 [wifi]
 label=📶
@@ -45,21 +58,23 @@ command=~/.config/i3blocks/.scripts/loadavg
 color=#b8d0e8
 interval=5
 separator=false
-command=/usr/libexec/i3blocks/temperature --chip k10temp-pci-00c3 -w 70 -c 80
+command=/usr/lib/i3blocks/temperature --chip k10temp-pci-00c3 -w 70 -c 80
 
 [fanspeed]
 color=#b8d0e8
 interval=5
 command=~/.config/i3blocks/.scripts/thinkpad-fanspeed
+min_width=9999 rpm
+align=right
 
 [memory]
-label=#
+label=🧠
 color=#8bbdeb
 interval=5
 separator=false
 
 [memory]
-label=S 
+label=💾
 color=#8bbdeb
 instance=swap
 interval=10
@@ -67,9 +82,9 @@ interval=10
 [battery]
 label=🔋
 color=#b8d0e8
-interval=30
+interval=10
 command=~/.config/i3blocks/.scripts/battery
-signal=3
+signal=5
 
 [disk]
 label=/ 

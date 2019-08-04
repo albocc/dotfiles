@@ -44,9 +44,9 @@ echo "$QUALITY% $SSID (${FREQ}G)" # full text
 echo $QUALITY% # short text
 
 # color
-if [[ $QUALITY -ge 80 ]]; then
+if [[ $QUALITY -ge 75 ]]; then
     echo -n ''  # Do not override: echo "#00FF00"
-elif [[ $QUALITY -lt 80 ]]; then
+elif [[ $QUALITY -lt 75 ]]; then
     echo "#FFF600"
 elif [[ $QUALITY -lt 60 ]]; then
     echo "#FFAE00"

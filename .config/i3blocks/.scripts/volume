@@ -17,12 +17,15 @@
 
 #------------------------------------------------------------------------
 
+# Determine the Analog card
+CARD=$(/usr/bin/aplay -l | /usr/bin/awk 'match($0, /\w* ([0-9]):.* ([0-9]):.*Analog/, ary) {print ary[1]}')
+
 # The second parameter overrides the mixer selection
 # For PulseAudio users, use "pulse"
 # For Jack/Jack2 users, use "jackplug"
 # For ALSA users, you may use "default" for your primary card
 # or you may use hw:# where # is the number of the card desired
-MIXER="default"
+MIXER="hw:$CARD"
 [ -n "$(lsmod | grep pulse)" ] && MIXER="pulse"
 [ -n "$(lsmod | grep jack)" ] && MIXER="jackplug"
 MIXER="${2:-$MIXER}"
@@ -62,9 +65,9 @@ format() {
 #------------------------------------------------------------------------
 
 case $BLOCK_BUTTON in
-  3) amixer -c 1 -q sset Master toggle && pkill -RTMIN+1 i3blocks ;;  # right click, mute/unmute
-  4) amixer -c 1 -q sset Master 5%+ && pkill -RTMIN+1 i3blocks ;; # scroll up, increase
-  5) amixer -c 1 -q sset Master 5%- && pkill -RTMIN+1 i3blocks ;; # scroll down, decrease
+  3) amixer -c $CARD -q sset Master toggle && pkill -RTMIN+1 i3blocks ;;  # right click, mute/unmute
+  4) amixer -c $CARD -q sset Master 5%+ && pkill -RTMIN+1 i3blocks ;; # scroll up, increase
+  5) amixer -c $CARD -q sset Master 5%- && pkill -RTMIN+1 i3blocks ;; # scroll down, decrease
 esac
 
 volume | format

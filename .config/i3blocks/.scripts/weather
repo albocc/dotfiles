@@ -1,0 +1,18 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+	1) SEARCH_LOCATION=$(dmenu -i -p "Weather location?") ;;
+esac
+
+SEARCH_LOCATION="${SEARCH_LOCATION:-$1}"
+
+WEATHER_REPORT="$(curl de.wttr.in/${SEARCH_LOCATION}?format=\"%l:+%c+%t+%p\" | tr -d '"')"
+
+LOCATION="${WEATHER_REPORT%%:*}:"
+LOCATION_SHORT="$(tr -cd '[:alpha:]' <<< ${LOCATION:0:8}):"
+
+CONDITION="${WEATHER_REPORT#*:}"
+
+echo $WEATHER_REPORT
+echo ${LOCATION_SHORT} ${CONDITION}
+
