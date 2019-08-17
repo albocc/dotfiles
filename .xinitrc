@@ -48,7 +48,7 @@ xautolock -time 29 -locker "i3lock" -notify 60 -notifier "notify-send 'System wi
 nitrogen --restore
 
 # Start statusbar for dwm
-~/.config/dwm/status-bar/status-bar.sh &
+#~/.config/dwm/status-bar/status-bar.sh &
 
 # Start Compton as compositor (also avoids tearing?)
 compton &
