@@ -46,33 +46,39 @@
 # General
 	s = status -s
 	st = status
-	pull = pull --ff-only --prune
+	p = pull --ff-only --prune
 	# You don't always want to blame them
 	praise = blame
 
 # Checkout
 	co = checkout
-	# Creating a branch with 'cb' prefixed by my username
-	cb = "!f() { git checkout -b $(git config --get user.name)/$@; }; f"
-	cof = "!f() { [ ${1:?'Search pattern missing'} ] && git co `git branch -a | grep -E \"feature/.*$@\" | awk 'NR==1{print $1}'`; }; f"	# checkout feature
+	cof = "!f() { [ ${1:?'Search pattern missing'} ] && git co `git branch -a | grep -Eo \"feature/.*?$@.*\" | awk 'NR==1{print $1}'`; }; f"	# checkout feature
+	cob = "!f() { [ ${1:?'Search pattern missing'} ] && git co `git branch -a | grep -Eo \"bugfix/.*?$@.*\" | awk 'NR==1{print $1}'`; }; f"	# checkout bugfix
 
 # Branch
+	br = branch -a --sort=-committerdate --format='%(color:green)%(committerdate) %09 %(if)%(HEAD)%(then)%(color:red)%(else)%(color:blue)%(end)%(refname:lstrip=2) %(color:white)by %(color:yellow)%(committername)'
 	# Create feature branch
-	cfb = "!f() { [ ${1:?'Arg missing'} ] && git checkout -b feature/$(sed 's/ä/ae/g; s/ö/oe/g; s/ü/ue/g; s/[^a-zA-Z0-9-]/_/g; s/__/_/g' <<< \"$@\"); }; f"
-	# Delete local branch (capital D means force)
+	cfb = "!f() { [ ${1:?'Arg missing'} ] && git checkout -b feature/$(sed 's/ä/ae/g; s/ö/oe/g; s/ü/ue/g; s/Ä/Ae/g; s/Ö/Oe/g; s/Ü/Ue/g; s/[^a-zA-Z0-9-]/_/g; s/__/_/g; s/[^a-zA-Z0-9]$//' <<< \"$@\"); }; f"
+	cfbf = "!f() { [ ${1:?'Arg missing'} ] && [ ${2:?'Arg missing'} ] && git checkout --no-track -b feature/$(sed 's/ä/ae/g; s/ö/oe/g; s/ü/ue/g; s/Ä/Ae/g; s/Ö/Oe/g; s/Ü/Ue/g; s/[^a-zA-Z0-9-]/_/g; s/__/_/g; s/[^a-zA-Z0-9]$//' <<< \"${@:2}\") $1; }; f"
+	cbb = "!f() { [ ${1:?'Arg missing'} ] && git checkout -b bugfix/$(sed 's/ä/ae/g; s/ö/oe/g; s/ü/ue/g; s/Ä/Ae/g; s/Ö/Oe/g; s/Ü/Ue/g; s/[^a-zA-Z0-9-]/_/g; s/__/_/g; s/[^a-zA-Z0-9]$//' <<< \"$@\"); }; f"
+	cbbf = "!f() { [ ${1:?'Arg missing'} ] && [ ${2:?'Arg missing'} ] && git checkout --no-track -b bugfix/$(sed 's/ä/ae/g; s/ö/oe/g; s/ü/ue/g; s/Ä/Ae/g; s/Ö/Oe/g; s/Ü/Ue/g; s/[^a-zA-Z0-9-]/_/g; s/__/_/g; s/[^a-zA-Z0-9]$//' <<< \"${@:2}\") $1; }; f"
 	dlb = "!f() { git branch -d ${1:?'Branch name missing'}; }; f"
 	Dlb = "!f() { git branch -D ${1:?'Branch name missing'}; }; f"
-	# Delete remote branch (including remote tracking brach)
-	drb = "!f() { git push --delete ${2-'origin'} ${1:?'Branch name missing'}; git branch --delete --remotes ${2-'origin'}/${1} }; f"
-	# Delete merged branches
-	dmb = "!f() { git branch --merged | egrep -v '(^*|master)' | xargs git branch -d;}; f"
+	drb = "!f() { git push --delete ${2-'origin'} ${1:?'Branch name missing'}; git branch --delete --remotes ${2-'origin'}/${1}; }; f"	# Delete remote branch
+	dmb = "!f() { git branch --merged | grep -v -E \"(^\\*|develop|master)\" | xargs git branch -d; }; f"	# Delete merged branches
 
 # Diff/Show
 	staged = diff --cached
 	# Diff between two commits below HEAD
 	dh = "!f() { git diff HEAD~${2:?'Arg missing'} HEAD~$1; }; f"
 	cs = "!f() { git rev-list --pretty=oneline `git merge-base ${1:?'Refspec for \"Since\" missing'} ${2-'HEAD'}`...${2-'HEAD'}; }; f"		# Commits since
+	csd = "!f() { git cs develop; }; f"
 	cso = "!f() { git cs origin/$(git rev-parse --abbrev-ref HEAD); }; f" # Commits since push to origin
+	csr = "!f() { git cs ${1}/$(git rev-parse --abbrev-ref HEAD); }; f" # Commits since push to <remote>
+	tl = "!f() { git tag -l --format '%(tag) - %(taggerdate) - %(taggername) - %(subject)' | sort | less; }; f"
+	tagtype = "!f() { git cat-file -t refs/tags/$1 | sed 's/tag/annotated/;s/commit/lightweight/'; }; f"
+	hascommit = branch --contains
+	diff-remote = "!f() { git diff ${1}/$(git branch --show-current); }; f" # Diff to remote's copy of this branch
 
 # Staging
 	unstage = reset HEAD --
@@ -80,25 +86,31 @@
 	ap = add -p
 	apr = "!f() { git add -p \\*$@\\*; }; f"
 	rp = reset -p
+	chmod = "!f() { git update-index --chmod=$1 \"$2\"; }; f"
 
 # Stashing
 	stash = "!git stash --include-untracked"
-	stashp = stash pop
+	spop = stash pop
+	spush = stash push
 
 # Commit
 	cm = "!f() { git commit -F - <<< \"$@\"; }; f"
 	amend = commit --amend
 	fixup = "!f() { git commit --fixup=$1 ${@:2}; }; f"
 
+# Push
+	pushto = "!f() { git push $1 ${2:-HEAD}; }; f"
+	pushtof = "!f() { git push $1 ${2:-HEAD} --force-with-lease; }; f"
+
 # Rebase
 	rbi = rebase --interactive --rebase-merges
-	# Rebase interactive the last n commits
-	rbih = "!f() { git rbi HEAD~${1:?'Arg missing'}; }; f"
-	# Rebase interactive since merge-base with branch
-	rbib = "!f() { git rbi $(git merge-base $(git rev-parse --abbrev-ref HEAD) ${1:?'Branch name missing'}); }; f"
+	rbih = "!f() { git rbi --autosquash HEAD~${1:?'Arg missing'}; }; f"
+	rbid = "!git rbi --autosquash $(git merge-base $(git rev-parse --abbrev-ref HEAD) develop)"
+	rbib = "!f() { git rbi --autosquash $(git merge-base $(git rev-parse --abbrev-ref HEAD) ${1:?'Branch name missing'}); }; f"
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbs = rebase --skip
+	rbr = "!f() { git discard .; git clean -df; git rebase --show-current-patch | git apply -3;}; f"  # Reset current conflict resolution (i.e. reset this step of the rebase)
 
 # Reset
 	discard = checkout --
@@ -110,7 +122,13 @@
 	rhh = "!f() { git rh HEAD~${1:?'Arg missing'}; }; f"
 
 # Merge
+	m = merge --no-ff --log
 	conflicts = "!f() { git format-patch $(git merge-base HEAD ${1:?'Arg missing'})..$1 --stdout | git apply --check -; }; f"
+
+# Cherry-pick
+	cp = cherry-pick
+	cpa = cherry-pick --abort
+	cpc = cherry-pick --continue
 
 # Log
 	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
