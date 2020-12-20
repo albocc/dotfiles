@@ -1,0 +1,44 @@
+{
+	"layer": "top",
+	"height": 30,
+	"modules-left": ["sway/workspaces", "sway/mode"],
+	"modules-center": ["sway/window"],
+	"modules-right": ["custom/spotify", "pulseaudio", "network", "cpu", "memory", "clock", "tray"],
+	"cpu": {
+		"format": "🧠 {usage}%"
+	},
+	"memory": {
+		"format": "🐏 {}%"
+	},
+	"network": {
+		"format-disconnect": "Getrennt"
+	},
+	"pulseaudio": {
+		"format": "{volume}% {icon}",
+		"format-bluetooth": "{volume}% {icon}📻",
+		"format-muted": "🔇",
+		"format-icons": {
+			"headphones": "🎧",
+			"phone": "☎️",
+			"default": ["🔉", "🔊"]
+		},
+		"on-click": "pavucontrol"
+	},
+	"tray": {
+		"icon-size": 21,
+		"spacing": 10
+	},
+	"clock": {
+		"interval": 1,
+		"format": "{:%a, %d.%m.%C %H:%M:%S}",
+		"max-length": 25
+	},
+	"custom/spotify": {
+		"return-type": "json",
+		"max-length": 40,
+		"interval": 1,
+		"exec": "$HOME/.config/waybar/mediaplayer.sh",
+		"exec-if": "pgrep spotify",
+		"on-click": "playerctl -p spotify play-pause"
+	}
+}
